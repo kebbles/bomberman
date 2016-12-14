@@ -1,6 +1,4 @@
-/**
- * Auto Generated Java Class.
- */
+
 public class Player {
     int x, y;
     int health;
@@ -15,6 +13,7 @@ public class Player {
     speed = 10;
     ammo = 1;
     canThrow = false;
+    
   }
 
 }
