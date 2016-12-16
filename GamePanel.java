@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
   private int FPS = 30;
   private double avgFPS;
   
+  public static GameStateChanger gsc;
   
   public GamePanel() { 
     super();
@@ -37,6 +38,8 @@ public class GamePanel extends JPanel implements Runnable {
     
     canvas = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     g = (Graphics2D) canvas.getGraphics();
+    
+    gsc = new GameStateChanger(MENU);
     
     long startTime;
     long timeMillis;
