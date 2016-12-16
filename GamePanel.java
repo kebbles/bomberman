@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     canvas = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     g = (Graphics2D) canvas.getGraphics();
     
-    gsc = new GameStateChanger(0);
+    gsc = new GameStateChanger(MENU);
     
     long startTime;
     long timeMillis;
