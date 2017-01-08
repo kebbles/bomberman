@@ -13,7 +13,6 @@ public class MenuState extends GameState {
   private GameStateChanger gsc;
   
   private BufferedImage[] bomb;
-  private BufferedImage[] font;
   
   
   public MenuState(GameStateChanger gsc) {
@@ -35,14 +34,11 @@ public class MenuState extends GameState {
   }
   
   public void draw(Graphics2D g) {
-    g.setColor(Color.black);
+    g.setColor(Color.red);
     g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
     
-    stringDraw("PLAY", 250, 253, g);
-    stringDraw("QUIT", 250, 273, g);
-    
-    if (curSelected == 0) g.drawImage(bomb[0], 230, 250, null);
-    else if (curSelected == 1) g.drawImage(bomb[0], 230, 270, null);
+    if (curSelected == 0) g.drawImage(bomb[0], 25, 90, null);
+    else if (curSelected == 1) g.drawImage(bomb[0], 25, 100, null);
   }
   
   public void select(int selected) {
@@ -63,27 +59,7 @@ public class MenuState extends GameState {
       for (int i = 0; i < 12; i++) {
         bomb[i] = img.getSubimage(i * width / 12, 0, width / 12, height);
       }
-      
-      img = ImageIO.read(new File("font.gif"));
-      width = img.getWidth();
-      height = img.getHeight();
-      font = new BufferedImage[27];
-      int cnt = 0;
-      for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 12; j++) {
-          font[cnt] = img.getSubimage(j * width / 12, i * height / 3, width / 12, height / 3);
-          cnt++;
-          if (cnt == 26) break;
-        }
-      }
     } catch(Exception e) {}
-  }
-  
-  public void stringDraw(String s, int x, int y, Graphics2D g) {
-    int width = font[0].getWidth();
-    for (int i = 0; i < s.length(); i++) {
-      g.drawImage(font[s.charAt(i) - 'A'], x + i * width, y, null);
-    }
   }
   
 }

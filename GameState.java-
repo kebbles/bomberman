@@ -6,6 +6,6 @@ abstract class GameState {
   }
   
   abstract void update();
-  abstract void draw(Graphics2D g);
+  abstract void draw();
   
 }

@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
-import java.awt.event.*;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
   
@@ -21,7 +20,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
   
   public GamePanel() { 
     super();
-    addKeyListener(this);
     setPreferredSize(new Dimension(WIDTH, HEIGHT));
     setFocusable(true);
     requestFocus();
@@ -86,7 +84,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
   }
   
   public void gameRender() {
-    gsc.draw(g);
+    g.setColor(Color.WHITE);
+    g.fillRect(0, 0, WIDTH, HEIGHT);
+    g.setColor(Color.RED);
+    g.drawString("FPS: " + avgFPS, 100, 100);
   }
   
   public void gameDraw() {
