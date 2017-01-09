@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 public class Player {
   
@@ -59,8 +60,8 @@ public class Player {
   
   public boolean canNextPosition() {
     
-    int row;
-    int col;
+    int row = 1;
+    int col = 1;
     
     if (moving) return true;
     
@@ -71,7 +72,7 @@ public class Player {
         xdest = x - tileSize;
     }
     else if (right) {
-      if (col == map.getNumColumns() || map.getType(row, col + 1) == Tile.BLOCKED)
+      if (col == map.getNumCols() || map.getType(row, col + 1) == Tile.BLOCKED)
         return false;
       else 
         xdest = x + tileSize;

@@ -6,17 +6,17 @@ public class PlayState extends GameState {
   
   private Map map;
   
-  
-  
   private GameStateChanger gsc;
   
   public PlayState(GameStateChanger gsc) { 
     this.gsc = gsc;
+    init();
   }
   
   public void init() {
     
     map = new Map(16);
+    map.loadMap("test.txt");
     
     player = new Player(map);
     player.setPosition(20, 20);
@@ -28,8 +28,7 @@ public class PlayState extends GameState {
   }
   
   public void draw(Graphics2D g) {
-    g.setColor(Color.red);
-    g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+    map.draw(g);
   }
   
 }
