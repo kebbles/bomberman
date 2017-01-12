@@ -1,4 +1,6 @@
 import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 public class Player {
   
@@ -50,6 +52,7 @@ public class Player {
     if (moving) return;
     down = true;
     moving = canNextPosition();
+    System.out.println(moving + " " + down);
   }
   
   public void setPosition(int a, int b) {
@@ -59,8 +62,8 @@ public class Player {
   
   public boolean canNextPosition() {
     
-    int row;
-    int col;
+    int row = 1;
+    int col = 1;
     
     if (moving) return true;
     
@@ -71,7 +74,7 @@ public class Player {
         xdest = x - tileSize;
     }
     else if (right) {
-      if (col == map.getNumColumns() || map.getType(row, col + 1) == Tile.BLOCKED)
+      if (col == map.getNumCols() || map.getType(row, col + 1) == Tile.BLOCKED)
         return false;
       else 
         xdest = x + tileSize;
@@ -109,6 +112,7 @@ public class Player {
   }
   
   public void update() {
+    System.out.println("moving: " + moving);
     if (moving) nextPosition();
     
     if (x == xdest && y == ydest) {
@@ -119,7 +123,9 @@ public class Player {
   }
   
   public void draw(Graphics2D g) {
-    g.drawImage(sprite, x, y, null);
+    //g.drawImage(sprite, x, y, null);
+    g.setColor(Color.YELLOW);
+    g.fillRect(x, y, 50, 50);
   }
   
 }

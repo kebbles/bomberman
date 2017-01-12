@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 public class Player {
@@ -27,6 +28,7 @@ public class Player {
   public Player(Map mp) { 
     map = mp;
     tileSize = map.getTileSize();
+    speed = 5;
   }
   
   public void setLeft() {
@@ -51,6 +53,7 @@ public class Player {
     if (moving) return;
     down = true;
     moving = canNextPosition();
+    System.out.println(moving + " " + down);
   }
   
   public void setPosition(int a, int b) {
@@ -95,6 +98,7 @@ public class Player {
   }
   
   public void nextPosition() {
+    //System.out.println(y + " " + ydest + " " + speed);
     if (left && x > xdest) x -= speed;
     else if (left && x < xdest) x = xdest;
     
@@ -110,9 +114,11 @@ public class Player {
   }
   
   public void update() {
+    System.out.println("moving: " + moving);
     if (moving) nextPosition();
     
     if (x == xdest && y == ydest) {
+      System.out.println("------------------------------------------------------------");
       left = right = up = down = moving = false;
       rowTile = x / tileSize;
       colTile = y / tileSize;
@@ -120,7 +126,9 @@ public class Player {
   }
   
   public void draw(Graphics2D g) {
-    g.drawImage(sprite, x, y, null);
+    //g.drawImage(sprite, x, y, null);
+    g.setColor(Color.YELLOW);
+    g.fillRect(x, y, 50, 50);
   }
   
 }

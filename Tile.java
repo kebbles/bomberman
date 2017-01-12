@@ -7,9 +7,10 @@ public class Tile {
   
   public static int NORMAL = 0;
   public static int BLOCKED = 1;
+  public static int BREAKABLE = 2;
   
   public Tile(int type) { 
-    type = this.type;
+    this.type = type;
     //img = this.img;
   }
   
