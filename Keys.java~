@@ -1,8 +1,9 @@
 import java.awt.*;
+import java.awt.event.*;
 
 public class Keys {
   
-  private boolean[] keys = new boolean[5];
+  private static boolean[] keys = new boolean[5];
   
   public static int UP = 0;
   public static int DOWN = 1;
@@ -10,7 +11,7 @@ public class Keys {
   public static int RIGHT = 3;
   public static int ENTER = 4;
   
-  public void set(int n, boolean b) {
+  public static void set(int n, boolean b) {
     if (n == KeyEvent.VK_UP) keys[UP] = b;
     else if (n == KeyEvent.VK_DOWN) keys[DOWN] = b;
     else if (n == KeyEvent.VK_LEFT) keys[LEFT] = b;
@@ -18,7 +19,7 @@ public class Keys {
     else if (n == KeyEvent.VK_ENTER) keys[ENTER] = b;
   }
   
-  public void isPressed(int n) {
+  public static boolean isPressed(int n) {
     return keys[n];
   }
   

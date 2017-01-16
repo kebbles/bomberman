@@ -1,4 +1,6 @@
 import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 public class Player {
   
@@ -26,6 +28,7 @@ public class Player {
   public Player(Map mp) { 
     map = mp;
     tileSize = map.getTileSize();
+    speed = 5;
   }
   
   public void setLeft() {
@@ -50,40 +53,40 @@ public class Player {
     if (moving) return;
     down = true;
     moving = canNextPosition();
+    System.out.println(moving + " " + down);
   }
   
   public void setPosition(int a, int b) {
     x = a;
     y = b;
+    xdest = x;
+    ydest = y;
   }
   
   public boolean canNextPosition() {
     
-    int row;
-    int col;
-    
     if (moving) return true;
     
     if (left) {
-      if (col == 0 || map.getType(row, col - 1) == Tile.BLOCKED)
+      if (colTile == 0 || map.getType(row, colTile - 1) == Tile.BLOCKED)
         return false;
       else 
         xdest = x - tileSize;
     }
     else if (right) {
-      if (col == map.getNumColumns() || map.getType(row, col + 1) == Tile.BLOCKED)
+      if (colTile == map.getNumCols() || map.getType(row, colTile + 1) == Tile.BLOCKED)
         return false;
       else 
         xdest = x + tileSize;
     }
     else if (up) {
-      if (row == 0 || map.getType(row - 1, col) == Tile.BLOCKED)
+      if (rowTile == 0 || map.getType(rowTile - 1, col) == Tile.BLOCKED)
         return false;
       else
         ydest = y - tileSize;
     }
     else if (down) {
-      if (row == map.getNumRows() || map.getType(row + 1, col) == Tile.BLOCKED)
+      if (rowTile == map.getNumRows() || map.getType(rowTile + 1, col) == Tile.BLOCKED)
         return false;
       else 
         ydest = y + tileSize;
@@ -94,24 +97,33 @@ public class Player {
   }
   
   public void nextPosition() {
+    //System.out.println(left + " " + right + " " + up + " " + down);
     if (left && x > xdest) x -= speed;
-    else if (left && x < xdest) x = xdest;
+    else left = false;
+    if (left && x < xdest) x = xdest;
     
     if (right && x < xdest) x += speed;
-    else if (right && x > xdest) x = xdest;
+    else right = false;
+    if (right && x > xdest) x = xdest;
     
     if (up && y < ydest) y -= speed;
-    else if (up && y > ydest) y = ydest;
+    else up = false;
+    if (up && y > ydest) y = ydest;
     
     if (down && y < ydest) y += speed;
-    else if (down && y > ydest) y = ydest;
+    else down = false;
+    if (down && y > ydest) y = ydest;
     
   }
   
   public void update() {
+    //System.out.println("moving: " + moving);
+    //System.out.println(x + " " + xdest + " " + y + " " + ydest);
+    System.out.println(rowTile + " " + colTile);
     if (moving) nextPosition();
     
     if (x == xdest && y == ydest) {
+      System.out.println("------------------------------------------------------------");
       left = right = up = down = moving = false;
       rowTile = x / tileSize;
       colTile = y / tileSize;
@@ -119,7 +131,9 @@ public class Player {
   }
   
   public void draw(Graphics2D g) {
-    g.drawImage(sprite, x, y, null);
+    //g.drawImage(sprite, x, y, null);
+    g.setColor(Color.YELLOW);
+    g.fillRect(x, y, 50, 50);
   }
   
 }

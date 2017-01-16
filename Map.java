@@ -19,17 +19,18 @@ public class Map {
   private static int BLOCKED = 1;
   
   public Map(int tileSize) { 
-   tileSize = this.tileSize;
-   numRows = numCols = 14;
+   this.tileSize = tileSize;
+   numRows = numCols = 12;
   }
   
   public int getTileSize() { return tileSize; }
   
   public int getType(int row, int col) { return map[row][col].getType(); }
+  public void setTile(int row, int col, int type) { map[row][col].setType(type); }
   
   public int getNumRows() { return numRows; }
-  
   public int getNumCols() { return numCols; }
+  
   
   public void loadMap(String s) {
     try {
@@ -61,14 +62,19 @@ public class Map {
     for (int row = 0; row < numRows; row++) {
       
       for (int col = 0; col < numCols; col++) {
-        if (map[row][col].getType() == NORMAL) {
+        
+        if (map[row][col].getType() == Tile.NORMAL) {
           g.setColor(Color.GRAY);
-          g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
         }
-        else if (map[row][col].getType() == BLOCKED) {
+        else if (map[row][col].getType() == Tile.BLOCKED) {
           g.setColor(Color.DARK_GRAY);
-          g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
         }
+        else if (map[row][col].getType() == Tile.BREAKABLE) {
+          g.setColor(new Color(138, 51, 36));
+        }
+        
+         g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+         
       }
     }
   }
