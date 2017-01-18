@@ -35,9 +35,21 @@ public class MenuState extends GameState {
   }
   
   public void draw(Graphics2D g) {
-    g.setColor(Color.black);
-    g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+    //g.setColor(Color.black);
+    //g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
     
+    for (int row = 0; row < 12; row++) {
+      for (int col = 0; col < 12; col++) {
+        g.drawImage(
+                    Sprites.BLOCK[Tile.BREAKABLE],
+                    col * 50,
+                    row * 50,
+                    null
+                   );
+      }
+    }
+    
+    stringDraw("BOMBERMAN", 210, 153, g);
     stringDraw("PLAY", 250, 253, g);
     stringDraw("QUIT", 250, 273, g);
     

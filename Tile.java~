@@ -1,8 +1,21 @@
+import java.awt.image.BufferedImage;
 
 public class Tile {
   
-  public Tile() { 
-    
+  private BufferedImage img;
+  private int type;
+  
+  public static int NORMAL = 0;
+  public static int BLOCKED = 1;
+  public static int BREAKABLE = 2;
+  
+  public Tile(int type) { 
+    this.type = type;
+    //img = this.img;
   }
+  
+  public int getType() { return type; }
+  
+  public BufferedImage getImg() { return img; } 
   
 }

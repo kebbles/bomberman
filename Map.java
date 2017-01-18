@@ -19,17 +19,18 @@ public class Map {
   private static int BLOCKED = 1;
   
   public Map(int tileSize) { 
-   tileSize = this.tileSize;
-   numRows = numCols = 14;
+   this.tileSize = tileSize;
+   numRows = numCols = 12;
   }
   
   public int getTileSize() { return tileSize; }
   
   public int getType(int row, int col) { return map[row][col].getType(); }
+  public void setTile(int row, int col, int type) { map[row][col].setType(type); }
   
   public int getNumRows() { return numRows; }
-  
   public int getNumCols() { return numCols; }
+  
   
   public void loadMap(String s) {
     try {
@@ -55,20 +56,28 @@ public class Map {
     }
   }
   
-  
-  
   public void draw(Graphics2D g) {
     for (int row = 0; row < numRows; row++) {
       
       for (int col = 0; col < numCols; col++) {
-        if (map[row][col].getType() == NORMAL) {
-          g.setColor(Color.GRAY);
-          g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+        BufferedImage[] block = new BufferedImage[1];
+        if (map[row][col].getType() == Tile.NORMAL) {
+             block[0] = Sprites.BLOCK[Tile.NORMAL];
         }
-        else if (map[row][col].getType() == BLOCKED) {
-          g.setColor(Color.DARK_GRAY);
-          g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+        else if (map[row][col].getType() == Tile.BLOCKED) {
+          block[0] = Sprites.BLOCK[Tile.BLOCKED];
         }
+        else if (map[row][col].getType() == Tile.BREAKABLE) {
+          block[0] = Sprites.BLOCK[Tile.BREAKABLE];
+        }
+        
+         //g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+         g.drawImage(
+               block[0],
+               col * tileSize,
+               row * tileSize,
+               null
+              );
       }
     }
   }
