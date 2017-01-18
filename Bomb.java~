@@ -1,0 +1,109 @@
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+public class Bomb {
+  
+ private int x;
+ private int y;
+ private Map map;
+ private int tileSize;
+ 
+ private static boolean explode;
+ 
+ private BufferedImage[] sprites;
+ private int currentFrame;
+ 
+ public static long time; 
+ 
+ public Bomb(int x, int y, Map mp) {
+   
+  this.x = x;
+  this.y = y;
+  
+  map = mp;
+  tileSize = map.getTileSize();
+  
+  explode = false;
+  
+  sprites = Sprites.BOMB;
+  time = 0;
+  
+ }
+ 
+ public int getCol() { return x; }
+ public int getRow() { return y; }
+ 
+ public static boolean canExplode() { 
+   return explode;
+ }
+ 
+ public void update() {
+   if (time < 250) currentFrame = 0;
+   else if (time < 500) currentFrame = 1;
+   else if (time < 750) currentFrame = 2;
+   else if (time <= 1000) {
+     currentFrame = 3;
+     explode = true;
+   }
+   
+   time++;
+ }
+ 
+ public void draw(Graphics2D g) {
+   g.drawImage(
+               sprites[currentFrame],
+               x * tileSize + tileSize / 4,
+               y * tileSize + tileSize / 4,
+               null
+              );
+   
+   if (explode) {
+     //int x = b.getCol();
+     //int y = b.getRow();
+     for (int col = x; col >= (x - 3) && col >= 0; col--) {
+       if (map.getType(y, col) == Tile.BLOCKED) break;
+       g.drawImage(
+                   Sprites.EXPLOSION[0],
+                   col * tileSize + tileSize / 4,
+                   y * tileSize + tileSize / 4,
+                   null
+                  );
+       map.setTile(y, col, Tile.NORMAL);
+     }
+     for (int col = x; col <= (x + 3) && col <= map.getNumCols(); col++) {
+       if (map.getType(y, col) == Tile.BLOCKED) break;
+         g.drawImage(
+                   Sprites.EXPLOSION[0],
+                   col * tileSize + tileSize / 4,
+                   y * tileSize + tileSize / 4,
+                   null
+                  );
+       map.setTile(y, col, Tile.NORMAL);
+     }
+     for (int row = y; row >= (y - 3) && row >= 0; row--) {
+       if (map.getType(row, x) == Tile.BLOCKED) break;
+         g.drawImage(
+                   Sprites.EXPLOSION[0],
+                   x * tileSize + tileSize / 4,
+                   row * tileSize + tileSize / 4,
+                   null
+                  );
+       map.setTile(row, x, Tile.NORMAL);
+     }
+     for (int row = y; row <= (y + 3) && row <= map.getNumRows(); row++) {
+       if (map.getType(row, x) == Tile.BLOCKED) break;
+         g.drawImage(
+                   Sprites.EXPLOSION[0],
+                   x * tileSize + tileSize / 4,
+                   row * tileSize + tileSize / 4,
+                   null
+                  );
+       map.setTile(row, x, Tile.NORMAL);
+     }
+   }
+   
+ }
+ 
+ 
+ 
+}

@@ -1,0 +1,9 @@
+
+public class GameEndState {
+  
+  public GameEndState() { 
+    /* YOUR CONSTRUCTOR CODE HERE*/
+  }
+  /* ADD YOUR CODE HERE */
+  
+}

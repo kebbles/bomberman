@@ -16,10 +16,10 @@ public class GameStateChanger {
   public void setState(int state) {
     curState = state;
     if (curState == MENU) {
-      gameState = new MenuState(GameStateChanger gsc);
+      gameState = new MenuState(this);
     }
     else if (curState == GAME) {
-      gameState = new PlayState(GameStateChanger gsc);
+      gameState = new PlayState(this);
     }
   }
   
